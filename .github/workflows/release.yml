@@ -1,0 +1,50 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build release jars
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Build
+        run: ./gradlew build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-jars
+          path: build/libs/*.jar
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Advanced Solar Panels Refactored ${{ github.ref_name }}
+          body: |
+            ## Requirements
+
+            - Minecraft: 1.20.1
+            - Forge: 47.4.20 or newer Forge 47.x
+            - Required: IndustrialCraft 2: Refactored 2.10.34-ex120 or newer
+            - Optional integration: JEI 15.20.0 or newer
+            - Optional integration: Jade 11.13.0 or newer
+
+            Install the normal mod jar on both client and server. The sources jar is provided for development reference.
+          files: build/libs/*.jar
