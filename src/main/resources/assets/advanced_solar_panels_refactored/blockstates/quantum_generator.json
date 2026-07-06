@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "advanced_solar_panels_refactored:block/quantum_generator"
+    },
+    "active=true": {
+      "model": "advanced_solar_panels_refactored:block/quantum_generator_active"
+    }
+  }
+}

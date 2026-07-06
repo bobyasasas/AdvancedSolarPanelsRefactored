@@ -1,0 +1,11 @@
+{
+  "type": "advanced_solar_panels_refactored:molecular_transforming",
+  "ingredient": {
+    "item": "minecraft:netherrack"
+  },
+  "result": {
+    "item": "minecraft:gunpowder",
+    "count": 2
+  },
+  "energy": 70000
+}

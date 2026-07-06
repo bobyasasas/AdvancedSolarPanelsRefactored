@@ -1,0 +1,19 @@
+{
+  "type": "ic2:shaped",
+  "pattern": [
+    " G ",
+    "GUG",
+    " G "
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "U": {
+      "item": "ic2:uranium_ingot"
+    }
+  },
+  "result": {
+    "item": "advanced_solar_panels_refactored:irradiant_uranium"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "ic2:shaped",
+  "pattern": [
+    "GGG",
+    "UDU",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "ic2:reinforced_glass"
+    },
+    "U": {
+      "item": "advanced_solar_panels_refactored:irradiant_uranium"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "advanced_solar_panels_refactored:irradiant_glass_pane"
+  }
+}

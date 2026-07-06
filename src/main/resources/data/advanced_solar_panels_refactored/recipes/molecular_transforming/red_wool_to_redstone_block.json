@@ -1,0 +1,10 @@
+{
+  "type": "advanced_solar_panels_refactored:molecular_transforming",
+  "ingredient": {
+    "item": "minecraft:red_wool"
+  },
+  "result": {
+    "item": "minecraft:redstone_block"
+  },
+  "energy": 500000
+}

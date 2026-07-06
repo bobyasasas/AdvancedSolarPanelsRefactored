@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "advanced_solar_panels_refactored:advanced_solar_panel",
+    "advanced_solar_panels_refactored:hybrid_solar_panel",
+    "advanced_solar_panels_refactored:ultimate_solar_panel",
+    "advanced_solar_panels_refactored:quantum_solar_panel",
+    "advanced_solar_panels_refactored:quantum_generator",
+    "advanced_solar_panels_refactored:molecular_transformer"
+  ]
+}

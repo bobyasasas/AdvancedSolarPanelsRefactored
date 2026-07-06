@@ -1,0 +1,10 @@
+{
+  "type": "advanced_solar_panels_refactored:molecular_transforming",
+  "ingredient": {
+    "item": "minecraft:wither_skeleton_skull"
+  },
+  "result": {
+    "item": "minecraft:nether_star"
+  },
+  "energy": 250000000
+}

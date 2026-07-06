@@ -1,0 +1,10 @@
+{
+  "type": "advanced_solar_panels_refactored:molecular_transforming",
+  "ingredient": {
+    "item": "minecraft:glowstone_dust"
+  },
+  "result": {
+    "item": "advanced_solar_panels_refactored:sunnarium_part"
+  },
+  "energy": 1000000
+}

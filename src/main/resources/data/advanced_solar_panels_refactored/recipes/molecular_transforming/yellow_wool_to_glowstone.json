@@ -1,0 +1,10 @@
+{
+  "type": "advanced_solar_panels_refactored:molecular_transforming",
+  "ingredient": {
+    "item": "minecraft:yellow_wool"
+  },
+  "result": {
+    "item": "minecraft:glowstone"
+  },
+  "energy": 500000
+}
