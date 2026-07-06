@@ -9,3 +9,4 @@ out/
 .project
 .settings/
 .DS_Store
+old_resources/
