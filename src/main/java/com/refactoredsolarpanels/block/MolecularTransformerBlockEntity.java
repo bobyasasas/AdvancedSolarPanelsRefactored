@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MolecularTransformerBlockEntity extends BlockEntity implements MenuProvider {
+    private static final int ACTIVE_STATE_CHECK_INTERVAL = 40;
     private static final int INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 1;
     private static final String TAG_INVENTORY = "Inventory";
@@ -89,6 +90,7 @@ public class MolecularTransformerBlockEntity extends BlockEntity implements Menu
 
     public MolecularTransformerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.MOLECULAR_TRANSFORMER.get(), pos, state);
+        this.active = state.hasProperty(MolecularTransformerBlock.ACTIVE) && state.getValue(MolecularTransformerBlock.ACTIVE);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, MolecularTransformerBlockEntity blockEntity) {
@@ -98,13 +100,12 @@ public class MolecularTransformerBlockEntity extends BlockEntity implements Menu
     private void tickServer(Level level, BlockPos pos, BlockState state) {
         this.energySink.update();
 
-        if (this.recipeEnergy <= 0) {
+        if (this.recipeEnergy <= 0 && hasStoredEnergy()) {
             this.tryStartRecipe(level);
         }
 
-        boolean nextActive = this.recipeEnergy > 0;
         this.lastEnergyInput = 0.0D;
-        if (this.recipeEnergy > 0 && canInsertOutput(this.pendingOutput)) {
+        if (canProcessRecipe()) {
             double stored = this.energySink.getEnergyStored();
             if (stored > 0.0D) {
                 double used = Math.min(stored, this.recipeEnergy - this.energyUsed);
@@ -120,19 +121,38 @@ public class MolecularTransformerBlockEntity extends BlockEntity implements Menu
                 this.pendingOutput = ItemStack.EMPTY;
                 this.recipeEnergy = 0;
                 this.energyUsed = 0;
-                nextActive = false;
             }
         }
 
-        if (this.active != nextActive) {
-            this.active = nextActive;
-            if (state.hasProperty(MolecularTransformerBlock.ACTIVE)) {
-                level.setBlock(pos, state.setValue(MolecularTransformerBlock.ACTIVE, nextActive), 3);
-            }
+        if (shouldCheckActiveState(level, pos)) {
+            this.setActiveState(level, pos, state, shouldBeActive());
         }
 
         if (level.getGameTime() % 20L == 0L) {
             this.setChanged();
+        }
+    }
+
+    private boolean hasStoredEnergy() {
+        return this.energySink.getEnergyStored() > 0.0D;
+    }
+
+    private boolean canProcessRecipe() {
+        return this.recipeEnergy > 0 && canInsertOutput(this.pendingOutput);
+    }
+
+    private boolean shouldBeActive() {
+        return this.energyUsed > 0 && this.lastEnergyInput > 0.0D;
+    }
+
+    private static boolean shouldCheckActiveState(Level level, BlockPos pos) {
+        return Math.floorMod(level.getGameTime() + pos.asLong(), ACTIVE_STATE_CHECK_INTERVAL) == 0L;
+    }
+
+    private void setActiveState(Level level, BlockPos pos, BlockState state, boolean nextActive) {
+        this.active = nextActive;
+        if (state.hasProperty(MolecularTransformerBlock.ACTIVE) && state.getValue(MolecularTransformerBlock.ACTIVE) != nextActive) {
+            level.setBlock(pos, state.setValue(MolecularTransformerBlock.ACTIVE, nextActive), 3);
         }
     }
 

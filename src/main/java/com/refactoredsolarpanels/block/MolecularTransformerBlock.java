@@ -21,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-public class MolecularTransformerBlock extends BaseEntityBlock {
+public class MolecularTransformerBlock extends BaseEntityBlock implements WrenchableMachineBlock {
     public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
     public MolecularTransformerBlock() {
@@ -51,6 +51,15 @@ public class MolecularTransformerBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return level.isClientSide ? null : createTickerHelper(type, ModBlockEntities.MOLECULAR_TRANSFORMER.get(), MolecularTransformerBlockEntity::serverTick);
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!level.isClientSide && !state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof MolecularTransformerBlockEntity blockEntity) {
+            BlockEntityDrops.dropContents(level, pos, blockEntity.getInventory());
+            BlockEntityDrops.dropStack(level, pos, blockEntity.getPendingInput());
+        }
+        super.onRemove(state, level, pos, newState, isMoving);
     }
 
     @Override

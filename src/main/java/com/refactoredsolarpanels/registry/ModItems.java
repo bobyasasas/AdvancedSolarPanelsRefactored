@@ -6,6 +6,7 @@ import com.refactoredsolarpanels.item.CraftingMaterial;
 import com.refactoredsolarpanels.item.DoubleStoneSlabItem;
 import com.refactoredsolarpanels.item.SolarHelmetItem;
 import com.refactoredsolarpanels.item.SolarHelmetTier;
+import ic2.core.item.resources.ItemWindRotor;
 import java.util.EnumMap;
 import java.util.Map;
 import net.minecraft.world.item.BlockItem;
@@ -44,6 +45,16 @@ public final class ModItems {
     public static final RegistryObject<Item> ADVANCED_SOLAR_HELMET = registerSolarHelmet(SolarHelmetTier.ADVANCED);
     public static final RegistryObject<Item> HYBRID_SOLAR_HELMET = registerSolarHelmet(SolarHelmetTier.HYBRID);
     public static final RegistryObject<Item> ULTIMATE_SOLAR_HELMET = registerSolarHelmet(SolarHelmetTier.ULTIMATE);
+    public static final RegistryObject<Item> IRIDIUM_ROTOR_BLADE = ITEMS.register("iridium_rotor_blade", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> IRIDIUM_ROTOR = ITEMS.register("iridium_rotor", () -> new ItemWindRotor(
+            new Item.Properties().durability(1209600),
+            10,
+            true,
+            1.25F,
+            24,
+            140,
+            AdvancedSolarPanels.id("textures/item/rotor/iridium_rotor_model.png")
+    ));
     public static final RegistryObject<Item> DOUBLE_STONE_SLAB = ITEMS.register("double_stone_slab", DoubleStoneSlabItem::new);
 
     private ModItems() {
@@ -66,7 +77,7 @@ public final class ModItems {
     }
 
     private static RegistryObject<Item> registerSolarHelmet(SolarHelmetTier tier) {
-        RegistryObject<Item> item = ITEMS.register(tier.getId(), () -> new SolarHelmetItem(tier));
+        RegistryObject<Item> item = ITEMS.register(tier.getId(), () -> SolarHelmetItem.create(tier));
         SOLAR_HELMETS.put(tier, item);
         return item;
     }

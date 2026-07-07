@@ -20,6 +20,8 @@ public final class ModCreativeTabs {
                 output.accept(ModItems.QUANTUM_GENERATOR.get());
                 output.accept(ModItems.MOLECULAR_TRANSFORMER.get());
                 ModItems.CRAFTING_MATERIALS.values().forEach(item -> output.accept(item.get()));
+                output.accept(ModItems.IRIDIUM_ROTOR_BLADE.get());
+                output.accept(ModItems.IRIDIUM_ROTOR.get());
                 ModItems.SOLAR_HELMETS.values().forEach(item -> output.accept(item.get()));
                 output.accept(ModItems.DOUBLE_STONE_SLAB.get());
             })

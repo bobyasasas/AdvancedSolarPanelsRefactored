@@ -1,43 +1,51 @@
 package com.refactoredsolarpanels.item;
 
+import com.refactoredsolarpanels.AdvancedSolarPanels;
 import ic2.api.item.ElectricItem;
-import ic2.api.item.HudMode;
 import ic2.api.item.IElectricItem;
-import ic2.api.item.IItemHudProvider;
-import ic2.api.item.IMetalArmor;
+import ic2.core.item.armor.ItemArmorNanoSuit;
+import ic2.core.item.armor.ItemArmorQuantumSuit;
+import ic2.core.ref.Ic2ArmorMaterials;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterials;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import org.jetbrains.annotations.Nullable;
 
-public class SolarHelmetItem extends ArmorItem implements IElectricItem, IMetalArmor, IItemHudProvider {
+public final class SolarHelmetItem {
     private static final int SKY_CHECK_INTERVAL = 128;
     private static final String TAG_TICKER = "SolarTicker";
     private static final String TAG_STATE = "SolarState";
 
-    private final SolarHelmetTier tier;
-
-    public SolarHelmetItem(SolarHelmetTier tier) {
-        super(ArmorMaterials.DIAMOND, Type.HELMET, new Properties().stacksTo(1).rarity(tier.getRarity()));
-        this.tier = tier;
+    private SolarHelmetItem() {
     }
 
-    @Override
-    public void onArmorTick(ItemStack stack, Level level, Player player) {
-        if (level.isClientSide) {
+    public static Item create(SolarHelmetTier tier) {
+        return switch (tier) {
+            case ADVANCED -> new Nano(tier);
+            case HYBRID, ULTIMATE -> new Quantum(tier);
+        };
+    }
+
+    private static Item.Properties properties(SolarHelmetTier tier) {
+        return new Item.Properties().stacksTo(1).rarity(tier.getRarity());
+    }
+
+    private static void solarTick(SolarHelmetTier tier, ItemStack stack, Level level, Entity entity, int slot, Item sourceItem) {
+        if (level.isClientSide || !(entity instanceof Player player) || slot != EquipmentSlot.HEAD.getIndex()) {
+            return;
+        }
+        if (player.getItemBySlot(EquipmentSlot.HEAD) != stack) {
             return;
         }
 
@@ -48,37 +56,33 @@ public class SolarHelmetItem extends ArmorItem implements IElectricItem, IMetalA
             tag.putInt(TAG_STATE, getGenerationState(level, player.blockPosition()).ordinal());
         }
 
-        if (this.tier != SolarHelmetTier.ADVANCED && player.getAirSupply() < 100 && ElectricItem.manager.canUse(stack, 1000.0D)) {
-            player.setAirSupply(player.getMaxAirSupply());
-            ElectricItem.manager.use(stack, 1000.0D, player);
-        }
-
         GenerationState state = GenerationState.byId(tag.getInt(TAG_STATE));
         double remaining = switch (state) {
-            case DAY -> this.tier.getDayProductionEuTick();
-            case NIGHT -> this.tier.getNightProductionEuTick();
+            case DAY -> tier.getDayProductionEuTick();
+            case NIGHT -> tier.getNightProductionEuTick();
             case NONE -> 0.0D;
         };
         if (remaining <= 0.0D) {
             return;
         }
 
-        remaining = chargeList(player.getInventory().armor, remaining);
-        remaining = chargeList(player.getInventory().offhand, remaining);
-        remaining = chargeList(player.getInventory().items, remaining);
+        int electricTier = ((IElectricItem) sourceItem).getTier(stack);
+        remaining = chargeList(player.getInventory().armor, remaining, electricTier, sourceItem);
+        remaining = chargeList(player.getInventory().offhand, remaining, electricTier, sourceItem);
+        remaining = chargeList(player.getInventory().items, remaining, electricTier, sourceItem);
         if (remaining > 0.0D) {
             ElectricItem.manager.charge(stack, remaining, Integer.MAX_VALUE, true, false);
         }
     }
 
-    private double chargeList(List<ItemStack> stacks, double amount) {
+    private static double chargeList(List<ItemStack> stacks, double amount, int electricTier, Item sourceItem) {
         double remaining = amount;
         for (ItemStack target : stacks) {
             if (remaining <= 0.0D) {
                 break;
             }
-            if (!target.isEmpty() && target.getItem() instanceof IElectricItem && target.getItem() != this) {
-                remaining -= ElectricItem.manager.charge(target, remaining, this.tier.getElectricTier(), false, false);
+            if (!target.isEmpty() && target.getItem() instanceof IElectricItem && target.getItem() != sourceItem) {
+                remaining -= ElectricItem.manager.charge(target, remaining, electricTier, false, false);
             }
         }
         return Math.max(0.0D, remaining);
@@ -88,89 +92,25 @@ public class SolarHelmetItem extends ArmorItem implements IElectricItem, IMetalA
         if (!level.dimensionType().hasSkyLight() || !level.canSeeSky(pos.above())) {
             return GenerationState.NONE;
         }
-        if (isDaylight(level, pos)) {
-            return GenerationState.DAY;
-        }
-        return GenerationState.NIGHT;
+        return isDaylight(level, pos) ? GenerationState.DAY : GenerationState.NIGHT;
     }
 
     private static boolean isDaylight(Level level, BlockPos pos) {
-        if (!level.isDay()) {
-            return false;
-        }
-        if (level.isRainingAt(pos)) {
+        if (!level.isDay() || level.isRainingAt(pos)) {
             return false;
         }
         float sunBrightness = Mth.clamp((float) Math.cos(level.getSunAngle(1.0F)) * 2.0F + 0.2F, 0.0F, 1.0F);
         return level.getBrightness(LightLayer.SKY, pos.above()) > 0 && sunBrightness > 0.0F;
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<net.minecraft.network.chat.Component> tooltip, TooltipFlag flag) {
-        tooltip.add(net.minecraft.network.chat.Component.translatable("tooltip.advanced_solar_panels_refactored.production.day", format(this.tier.getDayProductionEuTick())).withStyle(ChatFormatting.GRAY));
-        tooltip.add(net.minecraft.network.chat.Component.translatable("tooltip.advanced_solar_panels_refactored.production.night", format(this.tier.getNightProductionEuTick())).withStyle(ChatFormatting.GRAY));
-        tooltip.add(net.minecraft.network.chat.Component.literal(ElectricItem.manager.getToolTip(stack)).withStyle(ChatFormatting.DARK_GRAY));
+    private static void addSolarTooltip(SolarHelmetTier tier, List<Component> tooltip) {
+        tooltip.add(Component.translatable("tooltip.advanced_solar_panels_refactored.production.day", format(tier.getDayProductionEuTick())).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.advanced_solar_panels_refactored.production.night", format(tier.getNightProductionEuTick())).withStyle(ChatFormatting.GRAY));
     }
 
-    @Override
-    public Rarity getRarity(ItemStack stack) {
-        return this.tier.getRarity();
-    }
-
-    @Override
-    public boolean isBarVisible(ItemStack stack) {
-        return ElectricItem.manager.getCharge(stack) > 0.0D;
-    }
-
-    @Override
-    public int getBarWidth(ItemStack stack) {
-        return Math.round(13.0F * (float) ElectricItem.manager.getChargeLevel(stack));
-    }
-
-    @Override
-    public int getBarColor(ItemStack stack) {
-        return Mth.hsvToRgb((float) ElectricItem.manager.getChargeLevel(stack) / 3.0F, 1.0F, 1.0F);
-    }
-
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        String suffix = type == null ? "" : "_overlay";
-        return "advanced_solar_panels_refactored:textures/armor/" + this.tier.getId() + suffix + ".png";
-    }
-
-    @Override
-    public boolean canProvideEnergy(ItemStack stack) {
-        return false;
-    }
-
-    @Override
-    public double getMaxCharge(ItemStack stack) {
-        return this.tier.getMaxCharge();
-    }
-
-    @Override
-    public int getTier(ItemStack stack) {
-        return this.tier.getElectricTier();
-    }
-
-    @Override
-    public double getTransferLimit(ItemStack stack) {
-        return this.tier.getTransferLimit();
-    }
-
-    @Override
-    public boolean isMetalArmor(ItemStack stack, Player player) {
-        return true;
-    }
-
-    @Override
-    public boolean doesProvideHUD(ItemStack stack) {
-        return ElectricItem.manager.getCharge(stack) > 0.0D;
-    }
-
-    @Override
-    public HudMode getHudMode(ItemStack stack) {
-        return HudMode.BASIC;
+    private static String armorTexture(SolarHelmetTier tier, @Nullable String type) {
+        String suffix = type == null || tier == SolarHelmetTier.ADVANCED ? "" : "_overlay";
+        return AdvancedSolarPanels.MOD_ID + ":textures/armor/" + tier.getId() + suffix + ".png";
     }
 
     private static String format(double value) {
@@ -187,6 +127,58 @@ public class SolarHelmetItem extends ArmorItem implements IElectricItem, IMetalA
                 return NONE;
             }
             return values()[id];
+        }
+    }
+
+    private static final class Nano extends ItemArmorNanoSuit {
+        private final SolarHelmetTier tier;
+
+        private Nano(SolarHelmetTier tier) {
+            super(Ic2ArmorMaterials.NANO_SUIT, EquipmentSlot.HEAD, properties(tier));
+            this.tier = tier;
+        }
+
+        @Override
+        public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
+            super.inventoryTick(stack, level, entity, slot, selected);
+            solarTick(this.tier, stack, level, entity, slot, this);
+        }
+
+        @Override
+        public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+            super.appendHoverText(stack, level, tooltip, flag);
+            addSolarTooltip(this.tier, tooltip);
+        }
+
+        @Override
+        public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+            return armorTexture(this.tier, type);
+        }
+    }
+
+    private static final class Quantum extends ItemArmorQuantumSuit {
+        private final SolarHelmetTier tier;
+
+        private Quantum(SolarHelmetTier tier) {
+            super(Ic2ArmorMaterials.QUANTUM_SUIT, EquipmentSlot.HEAD, properties(tier));
+            this.tier = tier;
+        }
+
+        @Override
+        public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
+            super.inventoryTick(stack, level, entity, slot, selected);
+            solarTick(this.tier, stack, level, entity, slot, this);
+        }
+
+        @Override
+        public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+            super.appendHoverText(stack, level, tooltip, flag);
+            addSolarTooltip(this.tier, tooltip);
+        }
+
+        @Override
+        public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+            return armorTexture(this.tier, type);
         }
     }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "ic2:item/default",
+  "textures": {
+    "layer0": "advanced_solar_panels_refactored:item/crafting/iridium_rotor_blade"
+  }
+}
