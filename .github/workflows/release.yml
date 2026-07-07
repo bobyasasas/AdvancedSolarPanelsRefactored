@@ -38,6 +38,14 @@ jobs:
         with:
           name: Advanced Solar Panels Refactored ${{ github.ref_name }}
           body: |
+            ## Changes in 0.2.0
+
+            - Machines now drop their internal inventory contents when broken or replaced.
+            - IC2 normal and electric wrenches can remove the mod's machines.
+            - Molecular Transformer processing and lit-state behavior have been corrected.
+            - Solar helmets now inherit IC2 nano or quantum helmet behavior, keeping only this mod's textures and solar charging behavior.
+            - Added Iridium Rotor and Iridium Rotor Blade for IC2 kinetic generators.
+
             ## Requirements
 
             - Minecraft: 1.20.1

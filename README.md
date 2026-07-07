@@ -4,7 +4,15 @@ Forge addon project for Minecraft 1.20.1 and IndustrialCraft 2: Refactored.
 
 ## Version
 
-Current release: `0.1.0`
+Current release: `0.2.0`
+
+## Highlights in 0.2.0
+
+- Machines now drop their internal inventory contents when broken or replaced.
+- IC2 normal and electric wrenches can remove the mod's machines.
+- Molecular Transformer behavior has been corrected: it no longer starts processing with no stored EU, and its lit state now reflects active progress with EU input.
+- Solar helmets now inherit IC2 nano or quantum helmet behavior, keeping only this mod's textures and solar charging behavior.
+- Added Iridium Rotor and Iridium Rotor Blade for IC2 kinetic generators.
 
 ## Runtime requirements
 
@@ -35,4 +43,4 @@ The built mod jar is written to `build/libs/`.
 
 ## Releases
 
-Pushing a tag like `v0.1.0` runs the GitHub Actions release workflow. It builds the mod jar and sources jar, then attaches both files to the GitHub Release.
+Pushing a tag like `v0.2.0` runs the GitHub Actions release workflow. It builds the mod jar and sources jar, then attaches both files to the GitHub Release.
