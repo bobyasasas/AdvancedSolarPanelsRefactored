@@ -4,11 +4,17 @@ import com.refactoredsolarpanels.AdvancedSolarPanels;
 import com.refactoredsolarpanels.block.SolarPanelTier;
 import com.refactoredsolarpanels.item.CraftingMaterial;
 import com.refactoredsolarpanels.item.DoubleStoneSlabItem;
+import com.refactoredsolarpanels.item.EnchantableElectricArmor;
+import com.refactoredsolarpanels.item.EnchantableElectricTools;
 import com.refactoredsolarpanels.item.SolarHelmetItem;
 import com.refactoredsolarpanels.item.SolarHelmetTier;
 import ic2.core.item.resources.ItemWindRotor;
 import java.util.EnumMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -19,6 +25,8 @@ import net.minecraftforge.registries.RegistryObject;
 public final class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AdvancedSolarPanels.MOD_ID);
     public static final Map<SolarPanelTier, RegistryObject<Item>> SOLAR_PANEL_ITEMS = new EnumMap<>(SolarPanelTier.class);
+    public static final List<RegistryObject<Item>> ENCHANTABLE_EQUIPMENT = new ArrayList<>();
+    public static final Map<SolarHelmetTier, RegistryObject<Item>> ENCHANTABLE_SOLAR_HELMETS = new EnumMap<>(SolarHelmetTier.class);
 
     public static final RegistryObject<Item> ADVANCED_SOLAR_PANEL = registerSolarPanelItem(SolarPanelTier.ADVANCED);
     public static final RegistryObject<Item> HYBRID_SOLAR_PANEL = registerSolarPanelItem(SolarPanelTier.HYBRID);
@@ -57,6 +65,33 @@ public final class ModItems {
     ));
     public static final RegistryObject<Item> DOUBLE_STONE_SLAB = ITEMS.register("double_stone_slab", DoubleStoneSlabItem::new);
 
+    public static final RegistryObject<Item> LAPIS_CHAINSAW = registerEnchantable("lapis_chainsaw", EnchantableElectricTools::chainsaw);
+    public static final RegistryObject<Item> LAPIS_DRILL = registerEnchantable("lapis_drill", EnchantableElectricTools::drill);
+    public static final RegistryObject<Item> LAPIS_DIAMOND_DRILL = registerEnchantable("lapis_diamond_drill", EnchantableElectricTools::diamondDrill);
+    public static final RegistryObject<Item> LAPIS_IRIDIUM_DRILL = registerEnchantable("lapis_iridium_drill", EnchantableElectricTools::iridiumDrill);
+    public static final RegistryObject<Item> LAPIS_ELECTRIC_WRENCH = registerEnchantable("lapis_electric_wrench", EnchantableElectricTools::electricWrench);
+    public static final RegistryObject<Item> LAPIS_ELECTRIC_TREETAP = registerEnchantable("lapis_electric_treetap", EnchantableElectricTools::electricTreetap);
+    public static final RegistryObject<Item> LAPIS_MINING_LASER = registerEnchantable("lapis_mining_laser", EnchantableElectricTools::miningLaser);
+    public static final RegistryObject<Item> LAPIS_NANO_SABER = registerEnchantable("lapis_nano_saber", EnchantableElectricTools::nanoSaber);
+
+    public static final RegistryObject<Item> LAPIS_JETPACK_ELECTRIC = registerEnchantable("lapis_jetpack_electric", EnchantableElectricArmor::electricJetpack);
+    public static final RegistryObject<Item> LAPIS_BATPACK = registerEnchantable("lapis_batpack", EnchantableElectricArmor::batpack);
+    public static final RegistryObject<Item> LAPIS_ADVANCED_BATPACK = registerEnchantable("lapis_advanced_batpack", EnchantableElectricArmor::advancedBatpack);
+    public static final RegistryObject<Item> LAPIS_ENERGY_PACK = registerEnchantable("lapis_energy_pack", EnchantableElectricArmor::energyPack);
+    public static final RegistryObject<Item> LAPIS_LAPPACK = registerEnchantable("lapis_lappack", EnchantableElectricArmor::lappack);
+    public static final RegistryObject<Item> LAPIS_NIGHT_VISION_GOGGLES = registerEnchantable("lapis_night_vision_goggles", EnchantableElectricArmor::nightVisionGoggles);
+    public static final RegistryObject<Item> LAPIS_NANO_BOOTS = registerEnchantable("lapis_nano_boots", () -> EnchantableElectricArmor.nano(EquipmentSlot.FEET));
+    public static final RegistryObject<Item> LAPIS_NANO_CHESTPLATE = registerEnchantable("lapis_nano_chestplate", () -> EnchantableElectricArmor.nano(EquipmentSlot.CHEST));
+    public static final RegistryObject<Item> LAPIS_NANO_HELMET = registerEnchantable("lapis_nano_helmet", () -> EnchantableElectricArmor.nano(EquipmentSlot.HEAD));
+    public static final RegistryObject<Item> LAPIS_NANO_LEGGINGS = registerEnchantable("lapis_nano_leggings", () -> EnchantableElectricArmor.nano(EquipmentSlot.LEGS));
+    public static final RegistryObject<Item> LAPIS_QUANTUM_BOOTS = registerEnchantable("lapis_quantum_boots", () -> EnchantableElectricArmor.quantum(EquipmentSlot.FEET));
+    public static final RegistryObject<Item> LAPIS_QUANTUM_CHESTPLATE = registerEnchantable("lapis_quantum_chestplate", () -> EnchantableElectricArmor.quantum(EquipmentSlot.CHEST));
+    public static final RegistryObject<Item> LAPIS_QUANTUM_HELMET = registerEnchantable("lapis_quantum_helmet", () -> EnchantableElectricArmor.quantum(EquipmentSlot.HEAD));
+    public static final RegistryObject<Item> LAPIS_QUANTUM_LEGGINGS = registerEnchantable("lapis_quantum_leggings", () -> EnchantableElectricArmor.quantum(EquipmentSlot.LEGS));
+    public static final RegistryObject<Item> LAPIS_ADVANCED_SOLAR_HELMET = registerEnchantableSolarHelmet(SolarHelmetTier.ADVANCED);
+    public static final RegistryObject<Item> LAPIS_HYBRID_SOLAR_HELMET = registerEnchantableSolarHelmet(SolarHelmetTier.HYBRID);
+    public static final RegistryObject<Item> LAPIS_ULTIMATE_SOLAR_HELMET = registerEnchantableSolarHelmet(SolarHelmetTier.ULTIMATE);
+
     private ModItems() {
     }
 
@@ -79,6 +114,18 @@ public final class ModItems {
     private static RegistryObject<Item> registerSolarHelmet(SolarHelmetTier tier) {
         RegistryObject<Item> item = ITEMS.register(tier.getId(), () -> SolarHelmetItem.create(tier));
         SOLAR_HELMETS.put(tier, item);
+        return item;
+    }
+
+    private static RegistryObject<Item> registerEnchantable(String id, Supplier<? extends Item> supplier) {
+        RegistryObject<Item> item = ITEMS.register(id, supplier);
+        ENCHANTABLE_EQUIPMENT.add(item);
+        return item;
+    }
+
+    private static RegistryObject<Item> registerEnchantableSolarHelmet(SolarHelmetTier tier) {
+        RegistryObject<Item> item = registerEnchantable("lapis_" + tier.getId(), () -> SolarHelmetItem.createEnchantable(tier));
+        ENCHANTABLE_SOLAR_HELMETS.put(tier, item);
         return item;
     }
 }

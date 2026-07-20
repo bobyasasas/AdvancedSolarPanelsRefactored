@@ -1,0 +1,13 @@
+{
+  "type": "advanced_solar_panels_refactored:copy_nbt_shaped",
+  "pattern": [" S ", "CQC", "GTG"],
+  "key": {
+    "S": { "item": "advanced_solar_panels_refactored:ultimate_solar_panel" },
+    "C": { "item": "ic2:advanced_circuit" },
+    "Q": { "item": "advanced_solar_panels_refactored:lapis_quantum_helmet" },
+    "G": { "item": "ic2:glass_fibre_cable" },
+    "T": { "item": "ic2:hv_transformer" }
+  },
+  "copy_nbt_from": { "item": "advanced_solar_panels_refactored:lapis_quantum_helmet" },
+  "result": { "item": "advanced_solar_panels_refactored:lapis_ultimate_solar_helmet" }
+}

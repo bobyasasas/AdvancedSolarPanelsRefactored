@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "advanced_solar_panels_refactored:lapis_jetpack_electric",
+    "advanced_solar_panels_refactored:lapis_batpack",
+    "advanced_solar_panels_refactored:lapis_advanced_batpack",
+    "advanced_solar_panels_refactored:lapis_energy_pack",
+    "advanced_solar_panels_refactored:lapis_lappack",
+    "advanced_solar_panels_refactored:lapis_nano_chestplate",
+    "advanced_solar_panels_refactored:lapis_quantum_chestplate"
+  ]
+}

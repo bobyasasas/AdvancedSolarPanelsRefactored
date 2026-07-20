@@ -18,6 +18,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import org.jetbrains.annotations.Nullable;
@@ -31,9 +33,17 @@ public final class SolarHelmetItem {
     }
 
     public static Item create(SolarHelmetTier tier) {
+        return create(tier, false);
+    }
+
+    public static Item createEnchantable(SolarHelmetTier tier) {
+        return create(tier, true);
+    }
+
+    private static Item create(SolarHelmetTier tier, boolean enchantable) {
         return switch (tier) {
-            case ADVANCED -> new Nano(tier);
-            case HYBRID, ULTIMATE -> new Quantum(tier);
+            case ADVANCED -> new Nano(tier, enchantable);
+            case HYBRID, ULTIMATE -> new Quantum(tier, enchantable);
         };
     }
 
@@ -108,9 +118,10 @@ public final class SolarHelmetItem {
         tooltip.add(Component.translatable("tooltip.advanced_solar_panels_refactored.production.night", format(tier.getNightProductionEuTick())).withStyle(ChatFormatting.GRAY));
     }
 
-    private static String armorTexture(SolarHelmetTier tier, @Nullable String type) {
+    private static String armorTexture(SolarHelmetTier tier, boolean enchantable, @Nullable String type) {
         String suffix = type == null || tier == SolarHelmetTier.ADVANCED ? "" : "_overlay";
-        return AdvancedSolarPanels.MOD_ID + ":textures/armor/" + tier.getId() + suffix + ".png";
+        String prefix = enchantable ? "lapis_" : "";
+        return AdvancedSolarPanels.MOD_ID + ":textures/armor/" + prefix + tier.getId() + suffix + ".png";
     }
 
     private static String format(double value) {
@@ -132,10 +143,12 @@ public final class SolarHelmetItem {
 
     private static final class Nano extends ItemArmorNanoSuit {
         private final SolarHelmetTier tier;
+        private final boolean enchantable;
 
-        private Nano(SolarHelmetTier tier) {
+        private Nano(SolarHelmetTier tier, boolean enchantable) {
             super(Ic2ArmorMaterials.NANO_SUIT, EquipmentSlot.HEAD, properties(tier));
             this.tier = tier;
+            this.enchantable = enchantable;
         }
 
         @Override
@@ -152,16 +165,35 @@ public final class SolarHelmetItem {
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return armorTexture(this.tier, type);
+            return armorTexture(this.tier, this.enchantable, type);
+        }
+
+        @Override
+        public boolean isEnchantable(ItemStack stack) {
+            return this.enchantable || super.isEnchantable(stack);
+        }
+
+        @Override
+        public int getEnchantmentValue() {
+            return this.enchantable ? EnchantableItemSupport.getEnchantmentValue() : super.getEnchantmentValue();
+        }
+
+        @Override
+        public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+            return this.enchantable
+                    ? EnchantableItemSupport.canApply(stack, enchantment, Items.NETHERITE_HELMET)
+                    : super.canApplyAtEnchantingTable(stack, enchantment);
         }
     }
 
     private static final class Quantum extends ItemArmorQuantumSuit {
         private final SolarHelmetTier tier;
+        private final boolean enchantable;
 
-        private Quantum(SolarHelmetTier tier) {
+        private Quantum(SolarHelmetTier tier, boolean enchantable) {
             super(Ic2ArmorMaterials.QUANTUM_SUIT, EquipmentSlot.HEAD, properties(tier));
             this.tier = tier;
+            this.enchantable = enchantable;
         }
 
         @Override
@@ -178,7 +210,24 @@ public final class SolarHelmetItem {
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return armorTexture(this.tier, type);
+            return armorTexture(this.tier, this.enchantable, type);
+        }
+
+        @Override
+        public boolean isEnchantable(ItemStack stack) {
+            return this.enchantable || super.isEnchantable(stack);
+        }
+
+        @Override
+        public int getEnchantmentValue() {
+            return this.enchantable ? EnchantableItemSupport.getEnchantmentValue() : super.getEnchantmentValue();
+        }
+
+        @Override
+        public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+            return this.enchantable
+                    ? EnchantableItemSupport.canApply(stack, enchantment, Items.NETHERITE_HELMET)
+                    : super.canApplyAtEnchantingTable(stack, enchantment);
         }
     }
 }

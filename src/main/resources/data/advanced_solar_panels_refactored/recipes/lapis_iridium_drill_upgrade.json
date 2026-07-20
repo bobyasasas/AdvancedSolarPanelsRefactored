@@ -1,0 +1,11 @@
+{
+  "type": "advanced_solar_panels_refactored:copy_nbt_shaped",
+  "pattern": [" I ", "IdI", " C "],
+  "key": {
+    "I": { "item": "ic2:iridium" },
+    "d": { "item": "advanced_solar_panels_refactored:lapis_diamond_drill" },
+    "C": { "item": "ic2:energy_crystal" }
+  },
+  "copy_nbt_from": { "item": "advanced_solar_panels_refactored:lapis_diamond_drill" },
+  "result": { "item": "advanced_solar_panels_refactored:lapis_iridium_drill" }
+}

@@ -10,3 +10,5 @@ out/
 .settings/
 .DS_Store
 old_resources/
+libs/ic2-forge-*/
+libs/jlme-*.jar

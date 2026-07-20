@@ -23,6 +23,7 @@ public final class ModCreativeTabs {
                 output.accept(ModItems.IRIDIUM_ROTOR_BLADE.get());
                 output.accept(ModItems.IRIDIUM_ROTOR.get());
                 ModItems.SOLAR_HELMETS.values().forEach(item -> output.accept(item.get()));
+                ModItems.ENCHANTABLE_EQUIPMENT.forEach(item -> output.accept(item.get()));
                 output.accept(ModItems.DOUBLE_STONE_SLAB.get());
             })
             .build());

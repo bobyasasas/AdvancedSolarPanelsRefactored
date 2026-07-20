@@ -4,7 +4,7 @@ Forge addon project for Minecraft 1.20.1 and IndustrialCraft 2: Refactored.
 
 ## Version
 
-Current release: `0.3.0`
+Current release: `0.4.0-beta.1` (beta)
 
 ## Changes since 0.2.0
 
@@ -27,8 +27,11 @@ Current release: `0.3.0`
 - BuildCraft 7.99.24.9 for Minecraft 1.20.1 (upstream beta release)
 - JEI 15.20.0 or newer
 - Jade 11.13.0 or newer
+- Just a lot more enchantments 1.6d (optional; its own PML dependency is still required)
 
 The mod runs without BuildCraft, JEI, or Jade. BuildCraft is an optional dependency; JEI and Jade provide the integrations described above.
+
+IC2 electric tools, electric armor, and this add-on's solar helmets can be converted in a smithing table with lapis lazuli into enchantable counterparts. Conversion and compatible upgrade recipes preserve charge, enchantments, custom names, and mode NBT. The new equipment is recognized through vanilla and Forge tool/armor tags and also supports applicable Just a lot more enchantments enchantments when that mod is installed. Mending-style enchantments do not recharge EU.
 
 When BuildCraft is installed, eight configurable IC2/BuildCraft energy converters are available: LV, MV, HV, and EV Electric Engines convert EU to MJ, while the four Pneumatic Transducers convert MJ back to EU. Each machine can be disabled in `advanced_solar_panels_refactored-common.toml`; disabled machines stop operating, disappear from the creative tab, and have their recipes removed after a data reload or restart.
 

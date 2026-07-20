@@ -1,0 +1,12 @@
+{
+  "type": "advanced_solar_panels_refactored:copy_nbt_shaped",
+  "pattern": ["AnA", "ILI", "IAI"],
+  "key": {
+    "n": { "item": "advanced_solar_panels_refactored:lapis_nano_chestplate" },
+    "I": { "item": "ic2:iridium" },
+    "L": { "item": "ic2:lapotron_crystal" },
+    "A": { "item": "ic2:alloy" }
+  },
+  "copy_nbt_from": { "item": "advanced_solar_panels_refactored:lapis_nano_chestplate" },
+  "result": { "item": "advanced_solar_panels_refactored:lapis_quantum_chestplate" }
+}

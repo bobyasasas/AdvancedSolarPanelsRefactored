@@ -1,0 +1,13 @@
+{
+  "type": "advanced_solar_panels_refactored:copy_nbt_shaped",
+  "pattern": ["MLM", "InI", "G G"],
+  "key": {
+    "n": { "item": "advanced_solar_panels_refactored:lapis_nano_leggings" },
+    "I": { "item": "ic2:iridium" },
+    "L": { "item": "ic2:lapotron_crystal" },
+    "G": { "item": "minecraft:glowstone_dust" },
+    "M": { "item": "ic2:machine" }
+  },
+  "copy_nbt_from": { "item": "advanced_solar_panels_refactored:lapis_nano_leggings" },
+  "result": { "item": "advanced_solar_panels_refactored:lapis_quantum_leggings" }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "advanced_solar_panels_refactored:copy_nbt_shaped",
+  "pattern": ["GnG", "ILI", "CNC"],
+  "key": {
+    "N": { "item": "ic2:hazmat_helmet" },
+    "n": { "item": "advanced_solar_panels_refactored:lapis_nano_helmet" },
+    "I": { "item": "ic2:iridium" },
+    "L": { "item": "ic2:lapotron_crystal" },
+    "G": { "item": "ic2:reinforced_glass" },
+    "C": { "item": "ic2:advanced_circuit" }
+  },
+  "copy_nbt_from": { "item": "advanced_solar_panels_refactored:lapis_nano_helmet" },
+  "result": { "item": "advanced_solar_panels_refactored:lapis_quantum_helmet" }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "advanced_solar_panels_refactored:copy_nbt_shaped",
+  "pattern": ["ABA", "ACA", "A A"],
+  "key": {
+    "A": { "item": "ic2:lapotron_crystal" },
+    "B": { "item": "ic2:advanced_circuit" },
+    "C": { "item": "advanced_solar_panels_refactored:lapis_energy_pack" }
+  },
+  "copy_nbt_from": { "item": "advanced_solar_panels_refactored:lapis_energy_pack" },
+  "result": { "item": "advanced_solar_panels_refactored:lapis_lappack" }
+}

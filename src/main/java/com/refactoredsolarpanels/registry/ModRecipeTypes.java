@@ -2,6 +2,9 @@ package com.refactoredsolarpanels.registry;
 
 import com.refactoredsolarpanels.AdvancedSolarPanels;
 import com.refactoredsolarpanels.recipe.MolecularTransformerRecipe;
+import com.refactoredsolarpanels.recipe.CopyNbtShapedRecipe;
+import com.refactoredsolarpanels.recipe.CopyNbtShapelessRecipe;
+import com.refactoredsolarpanels.recipe.LapisEquipmentSmithingRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -18,6 +21,18 @@ public final class ModRecipeTypes {
     public static final RegistryObject<RecipeSerializer<MolecularTransformerRecipe>> MOLECULAR_TRANSFORMING_SERIALIZER = RECIPE_SERIALIZERS.register(
             "molecular_transforming",
             MolecularTransformerRecipe.Serializer::new
+    );
+    public static final RegistryObject<RecipeSerializer<CopyNbtShapedRecipe>> COPY_NBT_SHAPED_SERIALIZER = RECIPE_SERIALIZERS.register(
+            "copy_nbt_shaped",
+            CopyNbtShapedRecipe.Serializer::new
+    );
+    public static final RegistryObject<RecipeSerializer<CopyNbtShapelessRecipe>> COPY_NBT_SHAPELESS_SERIALIZER = RECIPE_SERIALIZERS.register(
+            "copy_nbt_shapeless",
+            CopyNbtShapelessRecipe.Serializer::new
+    );
+    public static final RegistryObject<RecipeSerializer<LapisEquipmentSmithingRecipe>> LAPIS_EQUIPMENT_SMITHING_SERIALIZER = RECIPE_SERIALIZERS.register(
+            "lapis_equipment_smithing",
+            LapisEquipmentSmithingRecipe.Serializer::new
     );
 
     public static final RegistryObject<RecipeType<MolecularTransformerRecipe>> MOLECULAR_TRANSFORMING = RECIPE_TYPES.register(

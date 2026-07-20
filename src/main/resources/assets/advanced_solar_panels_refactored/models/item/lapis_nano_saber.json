@@ -1,0 +1,5 @@
+{
+  "parent":"minecraft:item/handheld",
+  "textures":{"layer0":"advanced_solar_panels_refactored:item/lapis/nano_saber_inactive"},
+  "overrides":[{"predicate":{"ic2:is_activated":1},"model":"advanced_solar_panels_refactored:item/lapis_nano_saber_active"}]
+}
