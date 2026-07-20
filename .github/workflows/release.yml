@@ -37,14 +37,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: Advanced Solar Panels Refactored ${{ github.ref_name }}
-          body: |
-            ## Changes since v0.2.0
-
-            - Raised the minimum IndustrialCraft 2: Refactored version to `2.10.39-ex120`.
-            - Added optional BuildCraft `7.99.24.9` integration with eight configurable LV, MV, HV, and EV energy converters.
-            - Added EU-to-MJ Electric Engines and MJ-to-EU Pneumatic Transducers at a ratio of `5 EU = 2 MJ`.
-            - Added per-machine configuration, redstone shutdown, directional connections, IC2 wrench support, recipes, drops, and localization.
-            - Added Jade information for converter buffers, rates, connection sides, and machine status.
-            - Corrected Electric Engine UV mapping for the original Transducers textures.
-            - Added Transducers texture attribution and its GPL-2.0 license.
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
           files: build/libs/*.jar

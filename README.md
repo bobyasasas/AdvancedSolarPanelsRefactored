@@ -6,7 +6,25 @@ Forge addon project for Minecraft 1.20.1 and IndustrialCraft 2: Refactored.
 
 Current release: `0.4.0-beta.1` (beta)
 
-## Changes since 0.2.0
+## Changes in 0.4.0
+
+> `0.4.0-beta.1` is a prerelease. It has passed compilation and dedicated-server startup checks, but it has not yet been tested in normal gameplay.
+
+- Added 25 lapis-upgraded, enchantable equipment variants while preserving the original IC2 item classes, behavior, attributes, energy capacity, and operating modes.
+  - Tools: Chainsaw, Mining Drill, Diamond Drill, Iridium Drill, Electric Wrench, Electric Treetap, Mining Laser, and Nano Saber.
+  - Wearable equipment: Electric Jetpack, BatPack, Advanced BatPack, Energy Pack, Lappack, and Nightvision Goggles.
+  - Armor: complete NanoSuit and QuantumSuit sets.
+  - Solar equipment: Advanced, Hybrid, and Ultimate Hybrid Solar Helmets from this add-on.
+- Added template-free smithing-table conversion using the original equipment item plus lapis lazuli.
+- Preserved EU charge, enchantments, custom names, damage data, and IC2 mode NBT during smithing conversion and compatible equipment upgrades.
+- Added matching upgrade recipes for the lapis equipment variants, including drill, Lappack, NanoSuit-to-QuantumSuit, and solar helmet upgrade paths.
+- Added corresponding vanilla and Forge axes, pickaxes, shovels, shears, swords, and armor tags for enchantment and mod compatibility.
+- Added optional Just a lot more enchantments (JLME) compatibility, including its special Nano Saber anvil applicability check.
+- Explicitly excluded vanilla Mending and JLME's `repairable` enchantment; no enchantment directly restores or generates EU.
+- Applied vanilla Unbreaking probability rules when reducing EU wear from enchanted electric equipment.
+- Added item models, active Nano Saber animation support, English and Chinese localization, creative-tab entries, and lapis-accented item and armor textures.
+
+## Changes in 0.3.0
 
 - Raised the minimum IndustrialCraft 2: Refactored version to `2.10.39-ex120`.
 - Added optional BuildCraft `7.99.24.9` integration with eight configurable LV, MV, HV, and EV energy converters.
