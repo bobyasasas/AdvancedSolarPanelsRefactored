@@ -14,7 +14,11 @@ public enum CraftingMaterial {
     IRIDIUM_INGOT("iridium_ingot"),
     URANIUM_INGOT("uranium_ingot"),
     MT_CORE("mt_core"),
-    QUANTUM_CORE("quantum_core");
+    QUANTUM_CORE("quantum_core"),
+    CRUSHED_ANCIENT_DEBRIS("crushed_ancient_debris"),
+    PURIFIED_ANCIENT_DEBRIS("purified_ancient_debris"),
+    CRYSTALLINE_SOLAR_LENS("crystalline_solar_lens"),
+    NETHERITE_PLATE("netherite_plate");
 
     private final String id;
 

@@ -1,0 +1,36 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "advanced_solar_panels_refactored:expanded_recipe_enabled",
+          "feature": "intermediate_materials"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:shaped",
+        "pattern": [
+          "ACA",
+          "CIC",
+          "ACA"
+        ],
+        "key": {
+          "A": {
+            "item": "ic2:alloy"
+          },
+          "C": {
+            "item": "advanced_solar_panels_refactored:netherite_plate"
+          },
+          "I": {
+            "item": "advanced_solar_panels_refactored:iridium_iron_plate"
+          }
+        },
+        "result": {
+          "item": "advanced_solar_panels_refactored:reinforced_iridium_iron_plate",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

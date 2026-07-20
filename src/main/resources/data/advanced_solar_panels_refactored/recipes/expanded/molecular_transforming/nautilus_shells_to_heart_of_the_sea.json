@@ -1,0 +1,24 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "advanced_solar_panels_refactored:expanded_recipe_enabled",
+          "feature": "renewable_hearts_of_the_sea"
+        }
+      ],
+      "recipe": {
+        "type": "advanced_solar_panels_refactored:molecular_transforming",
+        "ingredient": {
+          "item": "minecraft:nautilus_shell"
+        },
+        "result": {
+          "item": "minecraft:heart_of_the_sea"
+        },
+        "energy": 50000000,
+        "input_count": 8
+      }
+    }
+  ]
+}

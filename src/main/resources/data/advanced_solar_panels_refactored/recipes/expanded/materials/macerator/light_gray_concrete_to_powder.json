@@ -1,0 +1,22 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "advanced_solar_panels_refactored:expanded_recipe_enabled",
+          "feature": "materials"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:macerator",
+        "ingredient": {
+          "item": "minecraft:light_gray_concrete"
+        },
+        "result": {
+          "item": "minecraft:light_gray_concrete_powder"
+        }
+      }
+    }
+  ]
+}

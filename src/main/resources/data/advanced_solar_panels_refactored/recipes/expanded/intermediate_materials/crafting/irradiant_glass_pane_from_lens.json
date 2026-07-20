@@ -1,0 +1,35 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "advanced_solar_panels_refactored:expanded_recipe_enabled",
+          "feature": "intermediate_materials"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:shaped",
+        "pattern": [
+          "GGG",
+          "ULU",
+          "GGG"
+        ],
+        "key": {
+          "G": {
+            "item": "ic2:reinforced_glass"
+          },
+          "U": {
+            "item": "advanced_solar_panels_refactored:irradiant_uranium"
+          },
+          "L": {
+            "item": "advanced_solar_panels_refactored:crystalline_solar_lens"
+          }
+        },
+        "result": {
+          "item": "advanced_solar_panels_refactored:irradiant_glass_pane"
+        }
+      }
+    }
+  ]
+}

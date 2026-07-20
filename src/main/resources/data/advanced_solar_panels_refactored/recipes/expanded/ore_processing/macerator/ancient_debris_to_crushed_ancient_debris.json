@@ -1,0 +1,23 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "advanced_solar_panels_refactored:expanded_recipe_enabled",
+          "feature": "ore_processing"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:macerator",
+        "ingredient": {
+          "item": "minecraft:ancient_debris"
+        },
+        "result": {
+          "item": "advanced_solar_panels_refactored:crushed_ancient_debris",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

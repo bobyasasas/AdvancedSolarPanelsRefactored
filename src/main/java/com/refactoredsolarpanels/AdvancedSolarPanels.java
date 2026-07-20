@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.refactoredsolarpanels.config.AdvancedSolarClientConfig;
 import com.refactoredsolarpanels.config.AdvancedSolarCommonConfig;
 import com.refactoredsolarpanels.recipe.MachineEnabledCondition;
+import com.refactoredsolarpanels.recipe.ExpandedRecipeCondition;
 import com.refactoredsolarpanels.registry.ModBlockEntities;
 import com.refactoredsolarpanels.registry.ModBlocks;
 import com.refactoredsolarpanels.registry.ModCreativeTabs;
@@ -13,6 +14,8 @@ import com.refactoredsolarpanels.registry.ModRecipeTypes;
 import com.refactoredsolarpanels.network.AdvancedSolarNetwork;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.ModList;
@@ -39,6 +42,8 @@ public final class AdvancedSolarPanels {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AdvancedSolarCommonConfig.SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, AdvancedSolarClientConfig.SPEC);
         MachineEnabledCondition.register();
+        ExpandedRecipeCondition.register();
+        MinecraftForge.EVENT_BUS.addListener(this::serverStarted);
         if (ModList.get().isLoaded("buildcraftcore")) {
             com.refactoredsolarpanels.compat.buildcraft.BuildCraftConverters.register(modBus);
         }
@@ -52,5 +57,12 @@ public final class AdvancedSolarPanels {
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(AdvancedSolarNetwork::register);
         LOGGER.info("Loaded Advanced Solar Panels: Refactored");
+    }
+
+    private void serverStarted(ServerStartedEvent event) {
+        int molecularRecipeCount = event.getServer().getRecipeManager()
+                .getAllRecipesFor(ModRecipeTypes.MOLECULAR_TRANSFORMING.get())
+                .size();
+        LOGGER.info("Molecular Transformer recipes available after configuration: {}", molecularRecipeCount);
     }
 }

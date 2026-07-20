@@ -13,7 +13,7 @@
       "item": "advanced_solar_panels_refactored:irradiant_uranium"
     },
     "D": {
-      "item": "minecraft:diamond"
+      "tag": "forge:gems/diamond"
     }
   },
   "result": {

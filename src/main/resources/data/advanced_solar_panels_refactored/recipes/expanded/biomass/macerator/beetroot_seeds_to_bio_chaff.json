@@ -1,0 +1,23 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "advanced_solar_panels_refactored:expanded_recipe_enabled",
+          "feature": "biomass"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:macerator",
+        "ingredient": {
+          "item": "minecraft:beetroot_seeds",
+          "count": 16
+        },
+        "result": {
+          "item": "ic2:bio_chaff"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "advanced_solar_panels_refactored:expanded_recipe_enabled",
+          "feature": "molecular_transformation"
+        }
+      ],
+      "recipe": {
+        "type": "advanced_solar_panels_refactored:molecular_transforming",
+        "ingredient": {
+          "item": "minecraft:tuff"
+        },
+        "result": {
+          "item": "minecraft:calcite"
+        },
+        "energy": 250000
+      }
+    }
+  ]
+}

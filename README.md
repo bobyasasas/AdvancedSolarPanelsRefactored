@@ -4,9 +4,32 @@ Forge addon project for Minecraft 1.20.1 and IndustrialCraft 2: Refactored.
 
 ## Version
 
-Current release: `0.4.0-beta.1` (beta)
+Current release: `0.4.0-beta.2` (beta)
 
-## Changes in 0.4.0
+## Changes in 0.4.0-beta.2
+
+- Added 137 configurable IndustrialCraft 2 machine recipes for Minecraft 1.20.1 materials:
+  - 54 wood, stone, compression, extraction, concrete, terracotta, and food-canning recipes.
+  - 21 Bio Chaff recipes for newer crops, aquatic plants, Nether plants, moss, and sniffer plants.
+  - 24 dye extractor recipes with consistent doubled machine yields.
+  - 11 ore-processing recipes for coal, diamond, emerald, lapis, redstone, Nether quartz, Nether gold, and Ancient Debris.
+  - 23 Molecular Transformer recipes spanning Overworld geology, Nether resources, End resources, and optional renewable exploration rewards.
+  - Four recipes using the new Crystalline Solar Lens and Netherite Plate progression materials.
+- Added Crushed Ancient Debris and Purified Ancient Debris. The complete Macerator → Ore Washing Plant → Thermal Centrifuge chain converts one Ancient Debris into two Netherite Scraps; the Blast Furnace remains a faster 1:1 alternative with slag.
+- Added Forge item tags for this add-on's iridium and uranium ingots and the new netherite plate, and changed suitable existing ingredients to Forge tags.
+- Added a master expanded-recipes switch, six category switches, and individual switches for eight progression-changing Molecular Transformer recipes.
+
+### Expanded recipe configuration
+
+All new recipes are enabled by default in `config/advanced_solar_panels_refactored-common.toml` under `expandedRecipes`.
+
+- `enabled` disables every expanded recipe at once.
+- `groups` separately controls material processing, ore processing, biomass, dye extraction, normal Molecular Transformer recipes, and intermediate materials.
+- `experimental` has a master switch plus individual switches for renewable elytra, budding amethyst, echo shards, shulker shells, hearts of the sea, diamond-to-netherite, copper-to-gold, and emerald-to-diamond transmutation.
+
+Changing a recipe switch requires a data reload or game/server restart. The four registered intermediate items remain available when their recipes are disabled so existing worlds and inventories remain valid.
+
+## Changes in 0.4.0-beta.1
 
 > `0.4.0-beta.1` is a prerelease. It has passed compilation and dedicated-server startup checks, but it has not yet been tested in normal gameplay.
 

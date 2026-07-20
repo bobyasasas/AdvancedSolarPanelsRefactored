@@ -1,0 +1,27 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "advanced_solar_panels_refactored:expanded_recipe_enabled",
+          "feature": "materials"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:canner_bottle",
+        "container_ingredient": {
+          "item": "ic2:tin_can",
+          "count": 1
+        },
+        "fill_ingredient": {
+          "item": "minecraft:pufferfish"
+        },
+        "result": {
+          "item": "ic2:filled_tin_can",
+          "count": 1
+        }
+      }
+    }
+  ]
+}

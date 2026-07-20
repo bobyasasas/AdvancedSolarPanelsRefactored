@@ -50,6 +50,10 @@ public final class ModItems {
     public static final RegistryObject<Item> URANIUM_INGOT = registerCraftingMaterial(CraftingMaterial.URANIUM_INGOT);
     public static final RegistryObject<Item> MT_CORE = registerCraftingMaterial(CraftingMaterial.MT_CORE);
     public static final RegistryObject<Item> QUANTUM_CORE = registerCraftingMaterial(CraftingMaterial.QUANTUM_CORE);
+    public static final RegistryObject<Item> CRUSHED_ANCIENT_DEBRIS = registerCraftingMaterial(CraftingMaterial.CRUSHED_ANCIENT_DEBRIS);
+    public static final RegistryObject<Item> PURIFIED_ANCIENT_DEBRIS = registerCraftingMaterial(CraftingMaterial.PURIFIED_ANCIENT_DEBRIS);
+    public static final RegistryObject<Item> CRYSTALLINE_SOLAR_LENS = registerCraftingMaterial(CraftingMaterial.CRYSTALLINE_SOLAR_LENS);
+    public static final RegistryObject<Item> NETHERITE_PLATE = registerCraftingMaterial(CraftingMaterial.NETHERITE_PLATE);
     public static final RegistryObject<Item> ADVANCED_SOLAR_HELMET = registerSolarHelmet(SolarHelmetTier.ADVANCED);
     public static final RegistryObject<Item> HYBRID_SOLAR_HELMET = registerSolarHelmet(SolarHelmetTier.HYBRID);
     public static final RegistryObject<Item> ULTIMATE_SOLAR_HELMET = registerSolarHelmet(SolarHelmetTier.ULTIMATE);

@@ -19,7 +19,7 @@
       "item": "advanced_solar_panels_refactored:reinforced_iridium_iron_plate"
     },
     "D": {
-      "item": "minecraft:gold_ingot"
+      "tag": "forge:ingots/gold"
     }
   },
   "result": {

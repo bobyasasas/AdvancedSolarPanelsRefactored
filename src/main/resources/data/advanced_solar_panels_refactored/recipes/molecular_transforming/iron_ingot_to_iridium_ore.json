@@ -1,7 +1,7 @@
 {
   "type": "advanced_solar_panels_refactored:molecular_transforming",
   "ingredient": {
-    "item": "minecraft:iron_ingot"
+    "tag": "forge:ingots/iron"
   },
   "result": {
     "item": "ic2:iridium_ore"
