@@ -1,0 +1,45 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "buildcraftcore"
+        },
+        {
+          "type": "advanced_solar_panels_refactored:machine_enabled",
+          "machine": "ev_electric_engine"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:shaped",
+        "pattern": [
+          "ITI",
+          "TAT",
+          "LEL"
+        ],
+        "key": {
+          "I": {
+            "item": "ic2:iridium"
+          },
+          "T": {
+            "item": "ic2:transformer_upgrade"
+          },
+          "A": {
+            "item": "ic2:advanced_circuit"
+          },
+          "L": {
+            "item": "ic2:lapotron_crystal"
+          },
+          "E": {
+            "item": "advanced_solar_panels_refactored:hv_electric_engine"
+          }
+        },
+        "result": {
+          "item": "advanced_solar_panels_refactored:ev_electric_engine"
+        }
+      }
+    }
+  ]
+}

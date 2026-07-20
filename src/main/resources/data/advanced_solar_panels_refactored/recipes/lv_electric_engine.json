@@ -1,0 +1,42 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "buildcraftcore"
+        },
+        {
+          "type": "advanced_solar_panels_refactored:machine_enabled",
+          "machine": "lv_electric_engine"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:shaped",
+        "pattern": [
+          " B ",
+          " E ",
+          "CMC"
+        ],
+        "key": {
+          "B": {
+            "item": "ic2:re_battery"
+          },
+          "E": {
+            "item": "buildcraftcore:engine_stone"
+          },
+          "C": {
+            "item": "ic2:circuit"
+          },
+          "M": {
+            "item": "ic2:electric_motor"
+          }
+        },
+        "result": {
+          "item": "advanced_solar_panels_refactored:lv_electric_engine"
+        }
+      }
+    }
+  ]
+}

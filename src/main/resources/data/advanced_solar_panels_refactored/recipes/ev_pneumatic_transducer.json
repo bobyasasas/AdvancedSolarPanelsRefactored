@@ -1,0 +1,45 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "buildcraftcore"
+        },
+        {
+          "type": "advanced_solar_panels_refactored:machine_enabled",
+          "machine": "ev_pneumatic_transducer"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:shaped",
+        "pattern": [
+          "IAI",
+          "RTR",
+          "IMI"
+        ],
+        "key": {
+          "I": {
+            "item": "ic2:triple_insulated_iron_cable"
+          },
+          "A": {
+            "item": "ic2:iridium"
+          },
+          "R": {
+            "item": "buildcraftsilicon:chipset_diamond"
+          },
+          "T": {
+            "item": "ic2:ev_transformer"
+          },
+          "M": {
+            "item": "advanced_solar_panels_refactored:hv_pneumatic_transducer"
+          }
+        },
+        "result": {
+          "item": "advanced_solar_panels_refactored:ev_pneumatic_transducer"
+        }
+      }
+    }
+  ]
+}

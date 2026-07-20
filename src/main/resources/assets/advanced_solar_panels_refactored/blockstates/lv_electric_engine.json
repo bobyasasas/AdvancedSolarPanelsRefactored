@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "advanced_solar_panels_refactored:block/lv_electric_engine"
+    },
+    "facing=east": {
+      "model": "advanced_solar_panels_refactored:block/lv_electric_engine",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "advanced_solar_panels_refactored:block/lv_electric_engine",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "advanced_solar_panels_refactored:block/lv_electric_engine",
+      "y": 270
+    }
+  }
+}

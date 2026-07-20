@@ -1,0 +1,49 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "normal": "advanced_solar_panels_refactored:block/transducers/ptrans_lv",
+    "input": "advanced_solar_panels_refactored:block/transducers/ptrans_lv_in",
+    "output": "advanced_solar_panels_refactored:block/transducers/ptrans_lv_out",
+    "particle": "advanced_solar_panels_refactored:block/transducers/ptrans_lv"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#normal",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#normal",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#input",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#output",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#normal",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#normal",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

@@ -33,6 +33,13 @@ ${mod_description}
     side="BOTH"
 
 [[dependencies.${mod_id}]]
+    modId="buildcraftcore"
+    mandatory=false
+    versionRange="${buildcraft_version_range}"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
     modId="jei"
     mandatory=false
     versionRange="[15.20.0,)"

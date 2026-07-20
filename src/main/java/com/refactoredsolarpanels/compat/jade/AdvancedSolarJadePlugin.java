@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fml.ModList;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;
@@ -48,6 +49,9 @@ public final class AdvancedSolarJadePlugin implements IWailaPlugin {
         registration.registerBlockDataProvider(SolarDataProvider.INSTANCE, SolarPanelBlockEntity.class);
         registration.registerBlockDataProvider(MolecularDataProvider.INSTANCE, MolecularTransformerBlockEntity.class);
         registration.registerBlockDataProvider(QuantumDataProvider.INSTANCE, QuantumGeneratorBlockEntity.class);
+        if (ModList.get().isLoaded("buildcraftcore")) {
+            com.refactoredsolarpanels.compat.buildcraft.BuildCraftJadeCompat.registerCommon(registration);
+        }
     }
 
     @Override
@@ -58,6 +62,9 @@ public final class AdvancedSolarJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(SolarComponentProvider.INSTANCE, SolarPanelBlock.class);
         registration.registerBlockComponent(MolecularComponentProvider.INSTANCE, MolecularTransformerBlock.class);
         registration.registerBlockComponent(QuantumComponentProvider.INSTANCE, QuantumGeneratorBlock.class);
+        if (ModList.get().isLoaded("buildcraftcore")) {
+            com.refactoredsolarpanels.compat.buildcraft.BuildCraftJadeCompat.registerClient(registration);
+        }
     }
 
     private enum SolarDataProvider implements IServerDataProvider<BlockAccessor> {

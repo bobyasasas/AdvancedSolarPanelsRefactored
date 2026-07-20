@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "advanced_solar_panels_refactored:ev_electric_engine",
+      "required": false
+    }
+  ]
+}

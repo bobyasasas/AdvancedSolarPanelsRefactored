@@ -1,0 +1,7 @@
+{
+  "parent": "advanced_solar_panels_refactored:block/template/electric_engine",
+  "textures": {
+    "base": "advanced_solar_panels_refactored:block/transducers/eengine_lv",
+    "particle": "advanced_solar_panels_refactored:block/transducers/eengine_lv"
+  }
+}

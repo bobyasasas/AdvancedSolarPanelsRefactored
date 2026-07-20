@@ -56,6 +56,7 @@ minecraft {
 }
 
 repositories {
+    flatDir { dirs 'libs' }
     mavenCentral()
     maven { url = 'https://maven.minecraftforge.net/' }
     maven { url = 'https://maven.blamejared.com/' }
@@ -65,8 +66,13 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    compileOnly files("libs/${ic2r_jar_name}")
-    runtimeOnly files("libs/${ic2r_jar_name}")
+    compileOnly fg.deobf("local:ic2-forge:${ic2r_version}")
+    runtimeOnly fg.deobf("local:ic2-forge:${ic2r_version}")
+
+    compileOnly fg.deobf("local:buildcraft:${buildcraft_artifact_version}")
+    if (!project.hasProperty('skipBuildCraftRuntime')) {
+        runtimeOnly fg.deobf("local:buildcraft:${buildcraft_artifact_version}")
+    }
 
     compileOnly "mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
@@ -82,16 +88,18 @@ tasks.named('processResources', ProcessResources).configure {
             forge_version          : forge_version,
             forge_version_range    : forge_version_range,
             loader_version_range   : loader_version_range,
-            ic2r_version           : ic2r_version,
-            ic2r_version_range     : ic2r_version_range,
-            jei_version            : jei_version,
-            jade_version           : jade_version,
-            mod_id                 : mod_id,
-            mod_name               : mod_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-            mod_authors            : mod_authors,
-            mod_description        : mod_description,
+            ic2r_version             : ic2r_version,
+            ic2r_version_range       : ic2r_version_range,
+            buildcraft_version       : buildcraft_version,
+            buildcraft_version_range : buildcraft_version_range,
+            jei_version              : jei_version,
+            jade_version             : jade_version,
+            mod_id                   : mod_id,
+            mod_name                 : mod_name,
+            mod_license              : mod_license,
+            mod_version              : mod_version,
+            mod_authors              : mod_authors,
+            mod_description          : mod_description,
     ]
     inputs.properties replaceProperties
 

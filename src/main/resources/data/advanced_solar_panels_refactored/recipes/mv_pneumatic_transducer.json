@@ -1,0 +1,42 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "buildcraftcore"
+        },
+        {
+          "type": "advanced_solar_panels_refactored:machine_enabled",
+          "machine": "mv_pneumatic_transducer"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:shaped",
+        "pattern": [
+          "CRC",
+          "RTR",
+          "CMC"
+        ],
+        "key": {
+          "C": {
+            "item": "ic2:insulated_copper_cable"
+          },
+          "R": {
+            "item": "buildcraftsilicon:chipset_iron"
+          },
+          "T": {
+            "item": "ic2:mv_transformer"
+          },
+          "M": {
+            "item": "advanced_solar_panels_refactored:lv_pneumatic_transducer"
+          }
+        },
+        "result": {
+          "item": "advanced_solar_panels_refactored:mv_pneumatic_transducer"
+        }
+      }
+    }
+  ]
+}

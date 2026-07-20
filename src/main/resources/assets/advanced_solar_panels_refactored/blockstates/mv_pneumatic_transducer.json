@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "advanced_solar_panels_refactored:block/mv_pneumatic_transducer"
+    },
+    "facing=east": {
+      "model": "advanced_solar_panels_refactored:block/mv_pneumatic_transducer",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "advanced_solar_panels_refactored:block/mv_pneumatic_transducer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "advanced_solar_panels_refactored:block/mv_pneumatic_transducer",
+      "y": 270
+    }
+  }
+}

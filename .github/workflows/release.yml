@@ -38,21 +38,13 @@ jobs:
         with:
           name: Advanced Solar Panels Refactored ${{ github.ref_name }}
           body: |
-            ## Changes in 0.2.0
+            ## Changes since v0.2.0
 
-            - Machines now drop their internal inventory contents when broken or replaced.
-            - IC2 normal and electric wrenches can remove the mod's machines.
-            - Molecular Transformer processing and lit-state behavior have been corrected.
-            - Solar helmets now inherit IC2 nano or quantum helmet behavior, keeping only this mod's textures and solar charging behavior.
-            - Added Iridium Rotor and Iridium Rotor Blade for IC2 kinetic generators.
-
-            ## Requirements
-
-            - Minecraft: 1.20.1
-            - Forge: 47.4.20 or newer Forge 47.x
-            - Required: IndustrialCraft 2: Refactored 2.10.34-ex120 or newer
-            - Optional integration: JEI 15.20.0 or newer
-            - Optional integration: Jade 11.13.0 or newer
-
-            Install the normal mod jar on both client and server. The sources jar is provided for development reference.
+            - Raised the minimum IndustrialCraft 2: Refactored version to `2.10.39-ex120`.
+            - Added optional BuildCraft `7.99.24.9` integration with eight configurable LV, MV, HV, and EV energy converters.
+            - Added EU-to-MJ Electric Engines and MJ-to-EU Pneumatic Transducers at a ratio of `5 EU = 2 MJ`.
+            - Added per-machine configuration, redstone shutdown, directional connections, IC2 wrench support, recipes, drops, and localization.
+            - Added Jade information for converter buffers, rates, connection sides, and machine status.
+            - Corrected Electric Engine UV mapping for the original Transducers textures.
+            - Added Transducers texture attribution and its GPL-2.0 license.
           files: build/libs/*.jar

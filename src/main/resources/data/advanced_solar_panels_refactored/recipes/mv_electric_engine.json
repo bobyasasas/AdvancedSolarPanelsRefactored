@@ -1,0 +1,42 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "buildcraftcore"
+        },
+        {
+          "type": "advanced_solar_panels_refactored:machine_enabled",
+          "machine": "mv_electric_engine"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:shaped",
+        "pattern": [
+          " C ",
+          " T ",
+          "BEB"
+        ],
+        "key": {
+          "C": {
+            "item": "ic2:circuit"
+          },
+          "T": {
+            "item": "ic2:transformer_upgrade"
+          },
+          "B": {
+            "item": "ic2:advanced_re_battery"
+          },
+          "E": {
+            "item": "advanced_solar_panels_refactored:lv_electric_engine"
+          }
+        },
+        "result": {
+          "item": "advanced_solar_panels_refactored:mv_electric_engine"
+        }
+      }
+    }
+  ]
+}

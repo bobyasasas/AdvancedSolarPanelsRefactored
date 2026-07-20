@@ -2,6 +2,8 @@ package com.refactoredsolarpanels;
 
 import com.mojang.logging.LogUtils;
 import com.refactoredsolarpanels.config.AdvancedSolarClientConfig;
+import com.refactoredsolarpanels.config.AdvancedSolarCommonConfig;
+import com.refactoredsolarpanels.recipe.MachineEnabledCondition;
 import com.refactoredsolarpanels.registry.ModBlockEntities;
 import com.refactoredsolarpanels.registry.ModBlocks;
 import com.refactoredsolarpanels.registry.ModCreativeTabs;
@@ -13,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -33,7 +36,12 @@ public final class AdvancedSolarPanels {
         ModRecipeTypes.register(modBus);
         ModCreativeTabs.register(modBus);
 
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AdvancedSolarCommonConfig.SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, AdvancedSolarClientConfig.SPEC);
+        MachineEnabledCondition.register();
+        if (ModList.get().isLoaded("buildcraftcore")) {
+            com.refactoredsolarpanels.compat.buildcraft.BuildCraftConverters.register(modBus);
+        }
         modBus.addListener(this::commonSetup);
     }
 

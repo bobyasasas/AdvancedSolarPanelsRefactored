@@ -1,0 +1,45 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "buildcraftcore"
+        },
+        {
+          "type": "advanced_solar_panels_refactored:machine_enabled",
+          "machine": "hv_electric_engine"
+        }
+      ],
+      "recipe": {
+        "type": "ic2:shaped",
+        "pattern": [
+          "ACA",
+          "TCT",
+          "EHE"
+        ],
+        "key": {
+          "A": {
+            "item": "ic2:alloy"
+          },
+          "C": {
+            "item": "ic2:advanced_circuit"
+          },
+          "T": {
+            "item": "ic2:transformer_upgrade"
+          },
+          "E": {
+            "item": "ic2:energy_crystal"
+          },
+          "H": {
+            "item": "advanced_solar_panels_refactored:mv_electric_engine"
+          }
+        },
+        "result": {
+          "item": "advanced_solar_panels_refactored:hv_electric_engine"
+        }
+      }
+    }
+  ]
+}
