@@ -4,7 +4,13 @@ Forge addon project for Minecraft 1.20.1 and IndustrialCraft 2: Refactored.
 
 ## Version
 
-Current release: `0.4.0-beta.2` (beta)
+Current release: `0.4.0-beta.3` (beta)
+
+## Changes in 0.4.0-beta.3
+
+- Added JEI support for all 25 template-free lapis equipment smithing conversions, including paired input/output cycling in the vanilla smithing category.
+- Fixed Electric Engine rendering by using the cutout render type and disabling full-block occlusion, preventing transparent texture artifacts and see-through faces beneath the model.
+- Changed all eight lapis electric tools to reuse their corresponding original IC2 textures while preserving Nano Saber active/inactive model switching.
 
 ## Changes in 0.4.0-beta.2
 

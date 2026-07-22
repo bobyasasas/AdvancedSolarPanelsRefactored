@@ -4,7 +4,9 @@ import com.google.gson.JsonObject;
 import com.refactoredsolarpanels.registry.ModItems;
 import com.refactoredsolarpanels.registry.ModRecipeTypes;
 import ic2.core.ref.Ic2Items;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import net.minecraft.core.RegistryAccess;
@@ -16,6 +18,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.level.Level;
@@ -84,6 +87,31 @@ public final class LapisEquipmentSmithingRecipe implements SmithingRecipe {
     @Override
     public boolean isIncomplete() {
         return false;
+    }
+
+    public List<ItemStack> getBaseItems() {
+        List<ItemStack> items = new ArrayList<>(CONVERSIONS.size());
+        for (Item item : CONVERSIONS.keySet()) {
+            items.add(new ItemStack(item));
+        }
+        return items;
+    }
+
+    public List<ItemStack> getResultItems() {
+        List<ItemStack> items = new ArrayList<>(CONVERSIONS.size());
+        for (Supplier<Item> item : CONVERSIONS.values()) {
+            items.add(new ItemStack(item.get()));
+        }
+        return items;
+    }
+
+    public ItemStack getResultFor(ItemStack base) {
+        Supplier<Item> resultItem = CONVERSIONS.get(base.getItem());
+        return resultItem == null ? ItemStack.EMPTY : new ItemStack(resultItem.get());
+    }
+
+    public Ingredient getLapisIngredient() {
+        return Ingredient.of(LAPIS_GEMS);
     }
 
     private static boolean isLapis(ItemStack stack) {

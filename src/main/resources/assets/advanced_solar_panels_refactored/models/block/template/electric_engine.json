@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:cutout",
   "textures": {
     "trunk": "advanced_solar_panels_refactored:block/transducers/trunk",
     "chamber": "advanced_solar_panels_refactored:block/transducers/chamber"

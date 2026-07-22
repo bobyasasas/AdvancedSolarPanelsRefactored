@@ -3,12 +3,15 @@ package com.refactoredsolarpanels.compat.jei;
 import com.refactoredsolarpanels.AdvancedSolarPanels;
 import com.refactoredsolarpanels.block.SolarPanelTier;
 import com.refactoredsolarpanels.client.MolecularTransformerScreen;
+import com.refactoredsolarpanels.recipe.LapisEquipmentSmithingRecipe;
 import com.refactoredsolarpanels.recipe.MolecularTransformerRecipe;
 import com.refactoredsolarpanels.registry.ModItems;
 import com.refactoredsolarpanels.registry.ModRecipeTypes;
 import java.util.List;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -18,10 +21,12 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.category.extensions.vanilla.smithing.ISmithingCategoryExtension;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -41,6 +46,14 @@ public final class AdvancedSolarJeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new MolecularTransformerCategory(registration.getJeiHelpers().getGuiHelper()));
+    }
+
+    @Override
+    public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
+        registration.getSmithingCategory().addExtension(
+                LapisEquipmentSmithingRecipe.class,
+                new LapisEquipmentSmithingExtension()
+        );
     }
 
     @Override
@@ -78,6 +91,47 @@ public final class AdvancedSolarJeiPlugin implements IModPlugin {
                 MolecularTransformerScreen.PROGRESS_HEIGHT,
                 MOLECULAR_TRANSFORMING
         );
+    }
+
+    private static final class LapisEquipmentSmithingExtension implements ISmithingCategoryExtension<LapisEquipmentSmithingRecipe> {
+        @Override
+        public <T extends IIngredientAcceptor<T>> void setTemplate(LapisEquipmentSmithingRecipe recipe, T ingredientAcceptor) {
+            // This conversion intentionally uses the legacy, template-free smithing layout.
+        }
+
+        @Override
+        public <T extends IIngredientAcceptor<T>> void setBase(LapisEquipmentSmithingRecipe recipe, T ingredientAcceptor) {
+            ingredientAcceptor.addItemStacks(recipe.getBaseItems());
+        }
+
+        @Override
+        public <T extends IIngredientAcceptor<T>> void setAddition(LapisEquipmentSmithingRecipe recipe, T ingredientAcceptor) {
+            ingredientAcceptor.addIngredients(recipe.getLapisIngredient());
+        }
+
+        @Override
+        public <T extends IIngredientAcceptor<T>> void setOutput(LapisEquipmentSmithingRecipe recipe, T ingredientAcceptor) {
+            ingredientAcceptor.addItemStacks(recipe.getResultItems());
+        }
+
+        @Override
+        public void onDisplayedIngredientsUpdate(
+                LapisEquipmentSmithingRecipe recipe,
+                IRecipeSlotDrawable templateSlot,
+                IRecipeSlotDrawable baseSlot,
+                IRecipeSlotDrawable additionSlot,
+                IRecipeSlotDrawable outputSlot,
+                IFocusGroup focuses
+        ) {
+            ItemStack result = baseSlot.getDisplayedItemStack()
+                    .map(recipe::getResultFor)
+                    .orElse(ItemStack.EMPTY);
+            if (result.isEmpty()) {
+                outputSlot.clearDisplayOverrides();
+            } else {
+                outputSlot.createDisplayOverrides().addItemStack(result);
+            }
+        }
     }
 
     private static final class MolecularTransformerCategory implements IRecipeCategory<MolecularTransformerRecipe> {

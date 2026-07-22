@@ -36,7 +36,7 @@ public final class EnergyConverterBlock extends BaseEntityBlock implements IWren
     private final EnergyConverterType converterType;
 
     public EnergyConverterBlock(EnergyConverterType converterType) {
-        super(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3.5F, 6.0F).requiresCorrectToolForDrops());
+        super(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(3.5F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
         this.converterType = converterType;
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
