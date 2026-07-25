@@ -4,7 +4,13 @@ Forge addon project for Minecraft 1.20.1 and IndustrialCraft 2: Refactored.
 
 ## Version
 
-Current release: `0.4.0-beta.4` (beta)
+Current release: `0.4.0-beta.5` (beta)
+
+## Changes in 0.4.0-beta.5
+
+- Rebalanced the Iridium Rotor to better match its late-game crafting cost:
+  - Increased durability from `1,209,600` to `12,096,000` (10x).
+  - Increased the efficiency coefficient from `1.25` to `1.75` (40% higher).
 
 ## Changes in 0.4.0-beta.4
 

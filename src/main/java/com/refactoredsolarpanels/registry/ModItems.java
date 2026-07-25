@@ -59,10 +59,10 @@ public final class ModItems {
     public static final RegistryObject<Item> ULTIMATE_SOLAR_HELMET = registerSolarHelmet(SolarHelmetTier.ULTIMATE);
     public static final RegistryObject<Item> IRIDIUM_ROTOR_BLADE = ITEMS.register("iridium_rotor_blade", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> IRIDIUM_ROTOR = ITEMS.register("iridium_rotor", () -> new ItemWindRotor(
-            new Item.Properties().durability(1209600),
+            new Item.Properties().durability(12096000),
             10,
             true,
-            1.25F,
+            1.75F,
             24,
             140,
             AdvancedSolarPanels.id("textures/item/rotor/iridium_rotor_model.png")
