@@ -4,7 +4,15 @@ Forge addon project for Minecraft 1.20.1 and IndustrialCraft 2: Refactored.
 
 ## Version
 
-Current release: `0.4.0-beta.3` (beta)
+Current release: `0.4.0-beta.4` (beta)
+
+## Changes in 0.4.0-beta.4
+
+- Removed the Quantum Generator crafting recipe. The block is now reserved for Creative mode as intended; existing blocks and inventories remain unaffected.
+- Added strict Molecular Transformer automation rules for hoppers and item pipes:
+  - Items can only be inserted into the input slot, and only valid Molecular Transformer recipe ingredients are accepted.
+  - Items can only be extracted from the output slot.
+  - The same rules apply on every side of the machine, preventing input and output items from being mixed.
 
 ## Changes in 0.4.0-beta.3
 

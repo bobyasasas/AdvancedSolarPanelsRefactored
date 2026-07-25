@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,8 +45,49 @@ public class MolecularTransformerBlockEntity extends BlockEntity implements Menu
         protected void onContentsChanged(int slot) {
             MolecularTransformerBlockEntity.this.setChanged();
         }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return slot == INPUT_SLOT && MolecularTransformerBlockEntity.this.isRecipeInput(stack);
+        }
     };
-    private final LazyOptional<ItemStackHandler> inventoryCapability = LazyOptional.of(() -> this.inventory);
+    private final LazyOptional<IItemHandler> automationCapability = LazyOptional.of(() -> new IItemHandler() {
+        @Override
+        public int getSlots() {
+            return MolecularTransformerBlockEntity.this.inventory.getSlots();
+        }
+
+        @Override
+        public @NotNull ItemStack getStackInSlot(int slot) {
+            return MolecularTransformerBlockEntity.this.inventory.getStackInSlot(slot);
+        }
+
+        @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if (slot != INPUT_SLOT) {
+                return stack;
+            }
+            return MolecularTransformerBlockEntity.this.inventory.insertItem(slot, stack, simulate);
+        }
+
+        @Override
+        public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
+            if (slot != OUTPUT_SLOT) {
+                return ItemStack.EMPTY;
+            }
+            return MolecularTransformerBlockEntity.this.inventory.extractItem(slot, amount, simulate);
+        }
+
+        @Override
+        public int getSlotLimit(int slot) {
+            return MolecularTransformerBlockEntity.this.inventory.getSlotLimit(slot);
+        }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return slot == INPUT_SLOT && MolecularTransformerBlockEntity.this.inventory.isItemValid(slot, stack);
+        }
+    });
     private final ContainerData menuData = new ContainerData() {
         @Override
         public int get(int index) {
@@ -176,6 +218,14 @@ public class MolecularTransformerBlockEntity extends BlockEntity implements Menu
         });
     }
 
+    private boolean isRecipeInput(ItemStack stack) {
+        if (stack.isEmpty() || this.level == null) {
+            return false;
+        }
+        return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.MOLECULAR_TRANSFORMING.get()).stream()
+                .anyMatch(recipe -> recipe.getIngredient().test(stack));
+    }
+
     private boolean canInsertOutput(ItemStack stack) {
         if (stack.isEmpty()) {
             return false;
@@ -250,7 +300,7 @@ public class MolecularTransformerBlockEntity extends BlockEntity implements Menu
         if (this.level != null && !this.level.isClientSide) {
             this.energySink.invalidate();
         }
-        this.inventoryCapability.invalidate();
+        this.automationCapability.invalidate();
         super.setRemoved();
     }
 
@@ -306,7 +356,7 @@ public class MolecularTransformerBlockEntity extends BlockEntity implements Menu
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable net.minecraft.core.Direction side) {
         if (capability == ForgeCapabilities.ITEM_HANDLER) {
-            return this.inventoryCapability.cast();
+            return this.automationCapability.cast();
         }
         return super.getCapability(capability, side);
     }
