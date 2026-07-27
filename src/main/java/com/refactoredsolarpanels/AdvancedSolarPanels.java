@@ -3,6 +3,7 @@ package com.refactoredsolarpanels;
 import com.mojang.logging.LogUtils;
 import com.refactoredsolarpanels.config.AdvancedSolarClientConfig;
 import com.refactoredsolarpanels.config.AdvancedSolarCommonConfig;
+import com.refactoredsolarpanels.item.QuantumSuitFallHandler;
 import com.refactoredsolarpanels.recipe.MachineEnabledCondition;
 import com.refactoredsolarpanels.recipe.ExpandedRecipeCondition;
 import com.refactoredsolarpanels.registry.ModBlockEntities;
@@ -43,6 +44,7 @@ public final class AdvancedSolarPanels {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, AdvancedSolarClientConfig.SPEC);
         MachineEnabledCondition.register();
         ExpandedRecipeCondition.register();
+        MinecraftForge.EVENT_BUS.addListener(QuantumSuitFallHandler::onLivingFall);
         MinecraftForge.EVENT_BUS.addListener(this::serverStarted);
         if (ModList.get().isLoaded("buildcraftcore")) {
             com.refactoredsolarpanels.compat.buildcraft.BuildCraftConverters.register(modBus);

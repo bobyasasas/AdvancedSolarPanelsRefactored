@@ -1,12 +1,14 @@
 # Advanced Solar Panels: Refactored 0.4.0-beta.5
 
-This beta rebalances the Iridium Rotor so its performance better reflects its late-game crafting cost.
+This beta rebalances the Iridium Rotor so its performance better reflects its late-game crafting cost and fixes fall protection for the lapis-upgraded QuantumSuit Boots.
 
 ## Changes
 
 - Increased Iridium Rotor durability from `1,209,600` to `12,096,000`, giving it ten times the previous operating life.
 - Increased its efficiency coefficient from `1.25` to `1.75`, a 40% increase in efficiency.
 - Rotor diameter and supported wind-strength range remain unchanged.
+- Fixed lapis-upgraded QuantumSuit Boots taking fall damage because IC2's fall handler only recognized its own registered QuantumSuit Boots.
+- Lapis-upgraded QuantumSuit Boots now use IC2's original behavior: when enough charge is available, they consume EU based on the fall distance and prevent the fall damage; otherwise, the wearer takes the normal damage.
 
 ## Requirements
 

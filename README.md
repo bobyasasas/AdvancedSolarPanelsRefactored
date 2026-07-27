@@ -11,6 +11,7 @@ Current release: `0.4.0-beta.5` (beta)
 - Rebalanced the Iridium Rotor to better match its late-game crafting cost:
   - Increased durability from `1,209,600` to `12,096,000` (10x).
   - Increased the efficiency coefficient from `1.25` to `1.75` (40% higher).
+- Fixed lapis-upgraded QuantumSuit Boots taking fall damage instead of consuming EU to absorb the fall like the original IC2 QuantumSuit Boots.
 
 ## Changes in 0.4.0-beta.4
 
